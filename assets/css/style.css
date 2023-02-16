@@ -1,0 +1,54 @@
+/*
+===========================
+	TIPOGRAFIAS
+===========================
+*/
+
+@font-face {
+	font-family: '';
+	src: url('') format('');
+}
+
+
+/*
+===========================
+	variables css
+===========================
+*/
+
+:root {}
+
+
+/*
+===========================
+	css comun
+===========================
+*/
+
+* {
+	margin:0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+
+/*
+===========================
+	responsive
+===========================
+*/
+
+@media screen and (orientation: landscape) {}
+@media screen and (orientation: portrait) {}
+
+
+/*
+===========================
+	animaciones
+===========================
+*/
+
+@keyframes animacion {
+	0% {}
+	100% {}
+}
