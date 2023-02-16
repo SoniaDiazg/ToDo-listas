@@ -16,9 +16,6 @@
 ===========================
 */
 
-:root {}
-
-
 /*
 ===========================
 	css comun
@@ -30,6 +27,28 @@
 	padding: 0px;
 	box-sizing: border-box;
 }
+
+body {
+	background-color: #F7CF93 !important;
+}
+
+hr {
+	height: 90%;
+	border: 0.5px solid black;
+}
+
+.mensajeRegistro {
+	font-size: 18px;
+	color: rgb(255, 115, 0);
+	text-align: center;
+}
+
+.btn {
+	background-color: rgb(255, 115, 0) !important;
+	color: azure !important;
+	border-color: rgb(255, 115, 0) !important;
+}
+
 
 
 /*
