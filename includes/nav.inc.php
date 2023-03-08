@@ -1,19 +1,23 @@
+<?php 
+require_once 'admin/includes/conexion.inc.php';
+?>
+
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-primary elevation-4">
+<aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="main.php" class="brand-link">
       <img src="assets/rsc/img/logo.png" alt="logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">ToDo Listas</span>
+      <span class="brand-text font-weight-light">Do Things</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="assets/rsc/img/fotoUsuario.png" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo $_SESSION['fotoUsu'];?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="perfil.php" class="d-block">Alexander Pierce</a>
+          <a href="perfil.php?idUsu=<?php echo $_SESSION['idUsu']?>" class="d-block"><?php echo $_SESSION['nombreUsu'];?></a>
         </div>
       </div>   
 
@@ -44,25 +48,11 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="perfil.php" class="nav-link">
+            <a href="perfil.php?idUsu=<?php echo $_SESSION['idUsu']?>" class="nav-link">
               <i class="nav-icon fa fa-solid fa-user"></i>
               <p>
                 Mi perfil
               </p>
-            </a>
-          <li class="nav-item">
-            <a href="calendario.php" class="nav-link" target="_blank">
-              <i class="nav-icon fa fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-              <i class="nav-icon fa fa-th-large"></i>
-              <p>Personalización</p>
             </a>
           </li>
         </ul>

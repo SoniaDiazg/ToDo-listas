@@ -1,0 +1,69 @@
+/*
+===========================
+	TIPOGRAFIAS
+===========================
+*/
+
+@font-face {
+	font-family: '';
+	src: url('') format('');
+}
+
+
+/*
+===========================
+	variables css
+===========================
+*/
+
+/*
+===========================
+	css comun
+===========================
+*/
+
+* {
+	margin:0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+/* CSS PERFIL */
+.card-primary.card-outline {
+    border-top: 3px solid #FF7300 !important;
+}
+
+.btn-editar {
+	background-color: #FF7300;
+	color: white;
+	border: 1px solid #FF7300;
+}
+
+.list-group {
+	align-items: center;
+}
+
+
+
+
+
+/*
+===========================
+	responsive
+===========================
+*/
+
+@media screen and (orientation: landscape) {}
+@media screen and (orientation: portrait) {}
+
+
+/*
+===========================
+	animaciones
+===========================
+*/
+
+@keyframes animacion {
+	0% {}
+	100% {}
+}
