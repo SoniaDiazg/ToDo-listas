@@ -8,7 +8,8 @@
   require_once 'admin/includes/conexion.inc.php';
 
   
-  
+  $nombreQueListaBorrar = "";
+  $idQueListaBorrar = "";
   /*===================
   Numero listas creadas
   ====================*/
@@ -31,13 +32,50 @@
     if (isset($_POST['nombreLista']) && !empty($_POST['nombreLista'])) {
       $sqlNuevaLista = "
         INSERT INTO lista
-          VALUES(null, '".$_POST['nombreLista']."', '".$fechaLista."', '', ".$_SESSION['idUsu'].");
+          VALUES(null, '".$_POST['nombreLista']."', '".$fechaLista."', '', 'activa', ".$_SESSION['idUsu'].");
       ";
 
       $queryNuevaLista = mysqli_query($conectar, $sqlNuevaLista);
     }
   }
 
+  /*================
+  Listas creadas
+  =================*/
+  $sqlLista
+  
+
+  /*======================
+  Borrar lista
+  ========================*/
+  if ($_GET) {
+
+    $sqlQueListaBorrar = "
+      SELECT *
+        FROM lista
+          WHERE id_usuario LIKE '".$_SESSION['idUsu']."'
+            AND estado_lista LIKE 'activa';
+    ";
+
+    $queryQueListaBorrar = mysqli_query($conectar, $sqlQueListaBorrar);
+
+    while ($rowQueListaBorrar = mysqli_fetch_assoc($queryQueListaBorrar)) {
+      $idQueListaBorrar = $rowQueListaBorrar['id_lista'];
+      $nombreQueListaBorrar = $rowQueListaBorrar['nombre_lista'];
+    }
+
+
+    if (isset($_GET['borrarLista']) ) {
+      $sqlBorrarLista = "
+      UPDATE lista
+        SET estado_lista = no activa
+        WHERE id_lista LIKE $idQueListaBorrar;
+    ";
+
+    $queryBorrarLista = mysqli_query($conectar, $sqlBorrarLista);
+    }
+    
+  }
 ?>
 
 
@@ -177,33 +215,35 @@
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
             
-            <!-- TO DO List -->
+            <!-- Do Things List -->
             <form action="" method="POST">
             <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">
                     <h4>Crear nueva lista</h3>
                     <i class="ion ion-clipboard mr-2"></i>
-                    <input class="form nombreLista" type="text" name="nombreLista" placeholder="Titulo Lista *" required>
-                    <button type="submit" class="btn btn-primary float-right"><a href="lista.php?idLista=<?php?>"><i class="fas fa-save"></i> Guardar Lista</a></button>
+                    <input class="form nombreLista" type="text" name="nombreLista" placeholder=" Titulo Lista *" required>
+                    <button type="submit" class="btn btn-primary float-right"><i class="fas fa-save"></i> Guardar Lista</a></button>
                   </h3>
                 </div>
-                  <div class="card-body nuevaTarea">
-                    <form action="" method="POST">
-                      <input type="text" class="form form-control" name="nuevaTarea" placeholder="Tarea">
-                      <button type="submit" class="btn-plus"><i class="fas fa-plus"></i></button>
-                    </form>
-                  </div>
+                <div class="card-body nuevaTarea">
+                  <form action="" method="POST">
+                    <input type="text" class="form form-control" name="nuevaTarea" placeholder="Tarea">
+                    <button type="submit" class="btn-plus"><i class="fas fa-plus"></i></button>
+                  </form>
+                </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                  <h4>Mis listas</h4>
                   <ul class="todo-list" data-widget="todo-list">
                     <?php 
-                      /*Ver las tareas de la lista*/
+                      /*Actualizacion de listas creadas*/
 
                       $sqlListas = "
                         SELECT *
                           FROM lista
-                          WHERE id_usuario LIKE '".$_SESSION['idUsu']."';
+                          WHERE id_usuario LIKE '".$_SESSION['idUsu']."' 
+                            AND estado_lista LIKE 'activa';
                       ";
 
                       $queryListas = mysqli_query($conectar, $sqlListas);
@@ -211,22 +251,24 @@
                       while ($rowListas = mysqli_fetch_assoc($queryListas)) {
                         ?>
                         <li>
-                          <!-- mover tarea -->
-                          <span class="handle">
-                            <i class="fas fa-ellipsis-v"></i>
-                            <i class="fas fa-ellipsis-v"></i>
-                          </span>
-                          <!-- checkbox -->
-                          <div  class="icheck-primary d-inline ml-2">
-                            <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                            <label for="todoCheck1"></label>
-                          </div>
-                          <!-- texto tarea -->
-                          <span class="text"><?php echo $rowListas['nombre_lista']?></span>
+                          <a href="lista.php?idLista=<?php echo $idLista?>" class="enlaceLista">
+                            <!-- mover tarea -->
+                            <span class="handle">
+                              <i class="fas fa-ellipsis-v"></i>
+                              <i class="fas fa-ellipsis-v"></i>
+                            </span>
+                            <!-- checkbox -->
+                            <div  class="icheck-primary d-inline ml-2">
+                              <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                              <label for="todoCheck1"></label>
+                            </div>
+                            <!-- texto tarea -->
+                            <span class="text"><?php echo $rowListas['nombre_lista']?></span>
+                          </a>
                           <!-- opciones tarea-->
                           <div class="tools">
                             <i class="fas fa-edit"></i>
-                            <i class="fas fa-trash-o"></i>
+                            <i class="fas fa-trash" type="button" data-toggle="modal" data-target="#modal-borrar"></i>
                           </div>
                         </li>
                         <?php
@@ -235,7 +277,7 @@
                   </ul>
                 </div>
                 <!-- /.card-body -->
-              </div>
+            </div>
             <!-- /.card -->
             </form>
               
@@ -269,6 +311,33 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<!-- Modal Eliminar -->
+<form action="" method="GET">
+  <div class="modal fade" id="modal-borrar">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><?php echo $nombreQueListaBorrar;?></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>¡Hola <?php echo $_SESSION['nombreUsu']?>! <br> ¿Quieres <strong>borrar</strong> la lista "<?php echo $nombreQueListaBorrar;?>"?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn-cancelar btn-outline-danger" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn" name="borrarLista">Confirmar</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</form>
+
 
 <script src="assets/js/script.js"></script>
 <!-- jQuery -->

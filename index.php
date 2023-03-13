@@ -43,7 +43,7 @@
     
             $sqlRegistro = "
               INSERT INTO usuario
-                VALUES (null, '".$_POST['nombreRegistro']."', '".$_POST['correoRegistro']."',  '".$miClaveEnc."', 0, '', 'no validado',  'admin/assests/rsc/img/fotoUsuario.png');
+                VALUES (null, '".$_POST['nombreRegistro']."', '".$_POST['correoRegistro']."',  '".$miClaveEnc."', 0, '', 'no validado',  'admin/assets/rsc/img/fotoUsuario.png');
             ";
     
             $queryRegistro = mysqli_query($conectar, $sqlRegistro);

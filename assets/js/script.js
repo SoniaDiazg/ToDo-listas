@@ -16,3 +16,4 @@ function agregar() {
   $(".nuevaTarea").css("display","flex").css("align-items", "center")
 }
 
+

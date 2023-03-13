@@ -25,27 +25,12 @@ require_once 'admin/includes/conexion.inc.php';
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+            <a href="main.php" class="nav-link">
               <i class="nav-icon fa fa-solid fa-list"></i>
               <p>
                 Mis listas
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="nuevaLista.php" class="nav-link">
-                  <i class="fa fa-solid fa-plus nav-icon"></i>
-                  <p>Nueva Lista</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="verListas.php" class="nav-link">
-                  <i class="fa fa-solid fa-eye nav-icon"></i>
-                  <p>Ver Listas</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="perfil.php?idUsu=<?php echo $_SESSION['idUsu']?>" class="nav-link">
